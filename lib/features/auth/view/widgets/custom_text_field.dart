@@ -43,7 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: SizedBox(
         width: widget.width ?? double.infinity,
-        height: widget.height,
+        height: 50,
         child: Container(
             decoration: BoxDecoration(
             color: Colors.white,
