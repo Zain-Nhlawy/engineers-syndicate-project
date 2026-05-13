@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/top_curve_clipper.dart';
+import 'register_part2_page.dart';
 
 class RegisterPage extends StatefulWidget {
     const RegisterPage({super.key});
@@ -164,7 +165,14 @@ class _RegisterPageState extends State<RegisterPage>
                                         child: PrimaryButton(
                                             text: 'التالي',
                                             buttonColor: const Color(0xFF054239),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                    builder: (context) => const RegisterPart2Page(),
+                                                    ),
+                                                );
+                                                },
                                         ),
                                         ),
                                         const SizedBox(height: 30),
