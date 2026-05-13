@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Engineers Syndicate',
 
-      /// 🌟 RTL لكل التطبيق
       builder: (context, child) {
         return Directionality(
           textDirection: TextDirection.rtl,
