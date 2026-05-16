@@ -3,8 +3,8 @@ import 'package:engineers_syndicate_project/features/home/view_model/navigation_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NavigationsTabs extends StatelessWidget {
-  const NavigationsTabs({super.key});
+class BuildingsScreen extends StatelessWidget {
+  const BuildingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
