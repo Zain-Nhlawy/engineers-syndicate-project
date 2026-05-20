@@ -17,13 +17,71 @@ class NavigationsTabs extends StatelessWidget {
           final cubit = context.read<NavigationTabsCubit>();
 
           return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(70),
+              child: AppBar(
+                centerTitle: true,
+                title: Expanded(
+                  child: Row(
+                    children: [
+                      Image.asset('assets/images/logo.png', height: 50),
+                      const SizedBox(width: 15),
+                      const Text(
+                        'نقابة المهندسين السوريين',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 20, 16, 6),
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 25),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.secondary,
+                            width: 0.8,
+                          ),
+                        ),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.notifications, size: 28),
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(250, 12),
+                  ),
+                ),
+              ),
+            ),
             extendBody: true,
-            body: PageView(
-              controller: cubit.pageController,
-              children: cubit.pages,
-              onPageChanged: (index) {
-                cubit.updateIndex(index);
-              },
+            body: Stack(
+              children: [
+                Positioned.fill(
+                  child: Container(
+                    color: const Color(0xFFEDEBE0).withOpacity(0.90),
+                  ),
+                ),
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/images/background.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                PageView(
+                  controller: cubit.pageController,
+                  children: cubit.pages,
+                  onPageChanged: (index) {
+                    cubit.updateIndex(index);
+                  },
+                ),
+              ],
             ),
             bottomNavigationBar: _buildModernNavBar(theme, state, cubit),
           );
@@ -125,7 +183,9 @@ class NavigationsTabs extends StatelessWidget {
             onTap: () => cubit.changePage(index),
             borderRadius: BorderRadius.circular(32),
             splashColor: colorScheme.primary.withOpacity(0.1),
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
               padding: const EdgeInsets.symmetric(vertical: 8),
               width: 60,
               decoration: BoxDecoration(
