@@ -40,7 +40,7 @@ class NavigationsTabs extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: Theme.of(context).colorScheme.secondary,
-                            width: 1,
+                            width: 0.8,
                           ),
                         ),
                         child: IconButton(

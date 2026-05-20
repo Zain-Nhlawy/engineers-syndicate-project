@@ -15,6 +15,6 @@ class BuildingsScreen extends StatelessWidget {
           
         ],
       ),
-    );
+    );  
   }
 }
