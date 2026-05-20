@@ -18,48 +18,46 @@ class NavigationsTabs extends StatelessWidget {
 
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(70),
-              child: AppBar(
-                centerTitle: true,
-                title: Expanded(
-                  child: Row(
-                    children: [
-                      Image.asset('assets/images/logo.png', height: 50),
-                      const SizedBox(width: 15),
-                      const Text(
-                        'نقابة المهندسين السوريين',
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 20, 16, 6),
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(width: 25),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Theme.of(context).colorScheme.secondary,
-                            width: 0.8,
-                          ),
-                        ),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.notifications, size: 28),
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(250, 12),
-                  ),
-                ),
-              ),
+  preferredSize: const Size.fromHeight(70),
+  child: AppBar(
+    centerTitle: true,
+    title: Row(
+      children: [
+        Image.asset('assets/images/logo.png', height: 50),
+        const SizedBox(width: 15),
+        const Text(
+          'نقابة المهندسين السوريين',
+          style: TextStyle(
+            color: Color.fromARGB(255, 20, 16, 6),
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(width: 25),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+              width: 0.8,
             ),
+          ),
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.notifications, size: 28),
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+        ),
+      ],
+    ),
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.elliptical(250, 12),
+      ),
+    ),
+  ),
+),
             extendBody: true,
             body: Stack(
               children: [

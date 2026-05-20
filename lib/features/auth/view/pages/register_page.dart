@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/top_curve_clipper.dart';
-import '../../view_model/auth_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'register_part2_page.dart';
 
 class RegisterPage extends StatefulWidget {

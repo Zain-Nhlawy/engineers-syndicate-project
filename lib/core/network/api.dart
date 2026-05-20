@@ -54,12 +54,6 @@ class Api {
 
         case DioExceptionType.cancel:
           return "Request was cancelled.";
-
-        case DioExceptionType.connectionError:
-          return "Network connection failed. No internet or server unreachable.";
-
-        case DioExceptionType.unknown:
-          return "Unexpected error: ${error.message}";
       }
     }
 

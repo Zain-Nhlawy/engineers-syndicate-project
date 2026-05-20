@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/user_model.dart';
 import 'dart:convert'; 
-import 'package:dio/dio.dart';
 
 class AuthApiService {
   final DioClient dioClient;

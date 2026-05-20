@@ -1,3 +1,5 @@
+import 'package:engineers_syndicate_project/features/buildings/data/service/buildings_api_service.dart';
+import 'package:engineers_syndicate_project/features/buildings/view_model/buildings_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../network/dio_client.dart';
@@ -26,8 +28,22 @@ void setupLocator() {
   );
 
   getIt.registerFactory<AuthCubit>(
-  () => AuthCubit(
-    authApiService: getIt<AuthApiService>(),
-  ),
-);
+    () => AuthCubit(
+      authApiService: getIt<AuthApiService>(),
+      storage: getIt<AppSecureStorage>(), 
+    ),
+  );
+
+  getIt.registerLazySingleton<BuildingsApiService>(
+    () => BuildingsApiService(
+      dioClient: getIt<DioClient>(),
+    ),
+  );
+
+  getIt.registerFactory<BuildingsCubit>(
+    () => BuildingsCubit(
+      buildingsApiService: getIt<BuildingsApiService>(),
+    ),
+  );
+
 }
