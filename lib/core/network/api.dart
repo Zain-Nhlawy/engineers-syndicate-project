@@ -7,12 +7,12 @@ class Api {
   Api() {
     dio = Dio(
       BaseOptions(
-        baseUrl: "$baseUrl/api/v1/",
+        baseUrl: "$baseUrl/",
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
         sendTimeout: const Duration(seconds: 20),
         validateStatus: (status) {
-          return status != null && status < 500;
+          return status != null;
         },
         headers: {
           "Accept": "application/json",
@@ -38,10 +38,18 @@ class Api {
         case DioExceptionType.badCertificate:
           return "Bad certificate. Server identity could not be verified.";
 
+        case DioExceptionType.connectionError:
+          return "Network connection failed. Details: ${error.error ?? error.message}";
+
+        case DioExceptionType.unknown:
+          return "Unexpected error: ${error.error ?? 'Unknown system error'}";
+
         case DioExceptionType.badResponse:
           final statusCode = error.response?.statusCode;
           final data = error.response?.data;
-
+          if (data is Map && data.containsKey('message')) {
+            return "خطأ من السيرفر ($statusCode): ${data['message']}";
+          }
           return "Server error ($statusCode): ${data ?? "Unknown error"}";
 
         case DioExceptionType.cancel:

@@ -10,17 +10,18 @@ class DioClient extends Api {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          final token = await storage.read(StorageKeys.token);
-          if (token != null && token.isNotEmpty) {
-            options.headers['Authorization'] = 'Bearer $token';
+          final isAuthRequest = options.path.contains('authentication');
+          if (!isAuthRequest) {
+            final token = await storage.read(StorageKeys.token);
+            if (token != null && token.isNotEmpty) {
+              options.headers['Authorization'] = 'Bearer $token';
+            }
           }
           if (options.data is FormData) {
-              options.headers['Content-Type'] = 'multipart/form-data';
+            options.headers['Content-Type'] = 'multipart/form-data';
           }
-
           return handler.next(options);
         },
-
         onError: (error, handler) async {
           return handler.next(error);
         },
