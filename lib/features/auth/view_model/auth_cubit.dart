@@ -23,6 +23,21 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  Future<void> signIn(String phoneNumber, String password) async {
+    if (phoneNumber.isEmpty || password.isEmpty) {
+      emit(AuthError('الرجاء ملء جميع الحقول'));
+      return;
+    }
+
+    emit(AuthLoading());
+    try {
+      final userData = await authApiService.signIn(phoneNumber, password);
+      emit(AuthLoginSuccess(userData));
+    } catch (e) {
+      emit(AuthError(_handleError(e)));
+    }
+  }
+
   String _handleError(dynamic e) {
     final msg = e.toString();
 
