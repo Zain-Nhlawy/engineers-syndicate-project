@@ -53,4 +53,60 @@ class AuthApiService {
       throw Exception(e.toString());
     }
   }
+
+  Future<Map<String, dynamic>> forgotPassword(String phoneNumber) async {
+    try {
+      final response = await dioClient.dio.post(
+        'authentication/forgot-password', 
+        data: jsonEncode({
+          "phoneNumber": phoneNumber,
+        }),
+      );
+      final data = response.data;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (data is Map<String, dynamic>) {
+          return data;
+        } else {
+          return {};
+        }
+      } else {
+        throw Exception(data['message'] ?? 'Forgot password request failed');
+      }
+    } on DioException catch (e) {
+      throw Exception(dioClient.handleError(e));
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  Future<Map<String, dynamic>> resetPassword({
+    required String phoneNumber,
+    required String token,
+    required String newPassword,
+  }) async {
+    try {
+      final response = await dioClient.dio.post(
+        'authentication/reset-password', 
+        data: jsonEncode({
+          "phoneNumber": phoneNumber,
+          "token": token,
+          "password": newPassword,
+        }),
+      );
+      final data = response.data;
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (data is Map<String, dynamic>) {
+          return data;
+        } else {
+          return {};
+        }
+      } else {
+        throw Exception(data['message'] ?? 'فشلت عملية إعادة التعيين');
+      }
+    } on DioException catch (e) {
+      throw Exception(dioClient.handleError(e));
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

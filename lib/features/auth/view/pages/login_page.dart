@@ -1,4 +1,5 @@
 
+import 'package:engineers_syndicate_project/features/auth/view/pages/forgot_password_page.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_cubit.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_state.dart';
 import 'package:engineers_syndicate_project/features/home/view/pages/Navigations_tabs.dart';
@@ -122,7 +123,14 @@ class _LoginPageState extends State<LoginPage> {
                             actionText: 'نسيت كلمة المرور',
                             fontSize: 16,
                             actionColor: const Color(0xFF000000),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ForgotPasswordPage(),
+                                ),
+                              );
+                            },
                           ),
                           const SizedBox(height: 40),
                           
