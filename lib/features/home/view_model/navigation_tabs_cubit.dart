@@ -13,10 +13,10 @@ class NavigationTabsCubit extends Cubit<NavigationTabsState> {
   final PageController pageController = PageController();
 
   final pages = [
-    MyProfileScreen(),
-    MyReservationScreen(),
-    BuildingsScreen(),
     HomeScreen(),
+    BuildingsScreen(),
+    MyReservationScreen(),
+    MyProfileScreen(),
   ];
 
   void changePage(int index) {

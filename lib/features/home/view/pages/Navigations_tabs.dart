@@ -18,46 +18,46 @@ class NavigationsTabs extends StatelessWidget {
 
           return Scaffold(
             appBar: PreferredSize(
-  preferredSize: const Size.fromHeight(70),
-  child: AppBar(
-    centerTitle: true,
-    title: Row(
-      children: [
-        Image.asset('assets/images/logo.png', height: 50),
-        const SizedBox(width: 15),
-        const Text(
-          'نقابة المهندسين السوريين',
-          style: TextStyle(
-            color: Color.fromARGB(255, 20, 16, 6),
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(width: 25),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.secondary,
-              width: 0.8,
+              preferredSize: const Size.fromHeight(70),
+              child: AppBar(
+                centerTitle: true,
+                title: Row(
+                  children: [
+                    Image.asset('assets/images/logo.png', height: 50),
+                    const SizedBox(width: 15),
+                    Text(
+                      'نقابة المهندسين السوريين',
+                      style: TextStyle(
+                        color: theme.colorScheme.secondary,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 25),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Theme.of(context).colorScheme.secondary,
+                          width: 0.8,
+                        ),
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.notifications, size: 28),
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  ],
+                ),
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    bottom: Radius.elliptical(250, 12),
+                  ),
+                ),
+              ),
             ),
-          ),
-          child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications, size: 28),
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-      ],
-    ),
-    backgroundColor: Theme.of(context).colorScheme.surface,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        bottom: Radius.elliptical(250, 12),
-      ),
-    ),
-  ),
-),
             extendBody: true,
             body: Stack(
               children: [
@@ -116,28 +116,19 @@ class NavigationsTabs extends StatelessWidget {
           children: [
             Expanded(
               child: _buildNavItem(
-                icon: Icons.person_outline,
+                icon: Icons.home_outlined,
                 index: 0,
                 theme: theme,
                 state: state,
                 cubit: cubit,
-                sideWord: "ملفي",
+                sideWord: "الرئيسية",
               ),
             ),
-            Expanded(
-              child: _buildNavItem(
-                icon: Icons.bookmark_outline,
-                index: 1,
-                theme: theme,
-                state: state,
-                cubit: cubit,
-                sideWord: "حجوزاتي",
-              ),
-            ),
+
             Expanded(
               child: _buildNavItem(
                 icon: Icons.maps_home_work_outlined,
-                index: 2,
+                index: 1,
                 theme: theme,
                 state: state,
                 cubit: cubit,
@@ -146,12 +137,22 @@ class NavigationsTabs extends StatelessWidget {
             ),
             Expanded(
               child: _buildNavItem(
-                icon: Icons.home_outlined,
+                icon: Icons.bookmark_outline,
+                index: 2,
+                theme: theme,
+                state: state,
+                cubit: cubit,
+                sideWord: "حجوزاتي",
+              ),
+            ),
+            Expanded(
+              child: _buildNavItem(
+                icon: Icons.person_outline,
                 index: 3,
                 theme: theme,
                 state: state,
                 cubit: cubit,
-                sideWord: "الرئيسية",
+                sideWord: "ملفي",
               ),
             ),
           ],

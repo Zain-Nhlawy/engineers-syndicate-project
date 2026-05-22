@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/features/home/view/pages/Navigations_tabs.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:engineers_syndicate_project/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +23,8 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<AuthCubit>(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,        
-        supportedLocales: const [
-          Locale('ar'),
-          Locale('en'), 
-        ],
+        debugShowCheckedModeBanner: false,
+        supportedLocales: const [Locale('ar'), Locale('en')],
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
@@ -41,7 +39,7 @@ class MyApp extends StatelessWidget {
             child: child!,
           );
         },
-        home: const LoginPage(), 
+        home: const LoginPage(),
       ),
     );
   }
