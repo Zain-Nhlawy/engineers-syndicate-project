@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/features/auth/view/pages/verify_otp_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/user_model.dart';
@@ -127,6 +128,11 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
         listener: (context, state) {
           if (state is AuthSuccess) {
             _showMsg(state.message);
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => VerifyOtpPage(phoneNumber: phoneController.text.trim()),
+              ),
+            );
           }
 
           if (state is AuthError) {

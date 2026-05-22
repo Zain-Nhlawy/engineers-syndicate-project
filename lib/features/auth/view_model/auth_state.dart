@@ -21,6 +21,26 @@ class AuthError extends AuthState {
   AuthError(this.error);
 }
 
+class AuthOtpLoading extends AuthState {}
+class AuthOtpSuccess extends AuthState {
+  final String message;
+  AuthOtpSuccess(this.message);
+}
+class AuthOtpError extends AuthState {
+  final String error;
+  AuthOtpError(this.error);
+}
+
+class AuthResendOtpLoading extends AuthState {}
+class AuthResendOtpSuccess extends AuthState {
+  final String message;
+  AuthResendOtpSuccess(this.message);
+}
+class AuthResendOtpError extends AuthState {
+  final String error;
+  AuthResendOtpError(this.error);
+}
+
 class ForgotPasswordLoading extends AuthState {}
 class ForgotPasswordEmailSentSuccess extends AuthState {
   final String message;

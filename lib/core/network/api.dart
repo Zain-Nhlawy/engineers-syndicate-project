@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:engineers_syndicate_project/dependencies.dart';
 
+
 class Api {
   late Dio dio;
 
@@ -11,13 +12,10 @@ class Api {
         connectTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
         sendTimeout: const Duration(seconds: 20),
-        validateStatus: (status) {
-          return status != null;
-        },
+        validateStatus: (status) => status != null && status < 500,
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
-          // "ngrok-skip-browser-warning": "any-value",
         },
       ),
     );
@@ -50,7 +48,7 @@ class Api {
           if (data is Map && data.containsKey('message')) {
             return "خطأ من السيرفر ($statusCode): ${data['message']}";
           }
-          return "Server error ($statusCode): ${data ?? "Unknown error"}";
+          return "Server error ($statusCode): ${data ?? 'Unknown error'}";
 
         case DioExceptionType.cancel:
           return "Request was cancelled.";

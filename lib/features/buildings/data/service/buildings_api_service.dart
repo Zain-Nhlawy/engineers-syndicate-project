@@ -1,27 +1,25 @@
-
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/building_model.dart';
 
 class BuildingsApiService {
-  final DioClient dioClient;
-
-  BuildingsApiService({required this.dioClient});
-
+  final DioClient _dioClient = GetIt.instance<DioClient>();
+  BuildingsApiService();
   Future<List<BuildingModel>> getBuildings() async {
     try {
-      final response = await dioClient.dio.get('buildings'); 
-
-      if (response.statusCode == 200) {
-        final List<dynamic> dataList = response.data['data'] ?? [];
-        return dataList.map((json) => BuildingModel.fromJson(json)).toList();
-      } else {
-        throw Exception(response.data['message'] ?? 'فشل في جلب الأبنية');
+      final response = await _dioClient.dio.get('buildings');
+      final data = response.data;
+      
+      if (response.statusCode == 200 && data['data'] != null) {
+        final List<dynamic> dataList = data['data'];
+        return dataList
+            .map((json) => BuildingModel.fromJson(json))
+            .toList();
       }
+      throw Exception(data['message'] ?? 'فشل في جلب الأبنية');
     } on DioException catch (e) {
-      throw Exception(dioClient.handleError(e));
-    } catch (e) {
-      throw Exception(e.toString());
+      throw Exception(_dioClient.handleError(e));
     }
   }
 }

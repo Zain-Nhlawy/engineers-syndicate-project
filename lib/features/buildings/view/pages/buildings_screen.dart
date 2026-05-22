@@ -1,9 +1,6 @@
-
 import 'package:engineers_syndicate_project/core/di/service_locator.dart';
-import 'package:engineers_syndicate_project/features/buildings/data/service/buildings_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/network/dio_client.dart'; 
 import '../../view_model/buildings_cubit.dart';
 import '../../view_model/buildings_state.dart';
 import '../widgets/building_card.dart';
@@ -15,11 +12,7 @@ class BuildingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BuildingsCubit(
-        buildingsApiService: BuildingsApiService(
-          dioClient: getIt<DioClient>(),
-        ),
-      )..fetchBuildings(),
+      create: (context) => getIt<BuildingsCubit>()..fetchBuildings(),
       
       child: Scaffold(
         backgroundColor: Colors.transparent,
