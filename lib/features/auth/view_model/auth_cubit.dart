@@ -85,4 +85,45 @@ class AuthCubit extends Cubit<AuthState> {
     }
     return msg;
   }
+
+  Future<void> forgotPassword(String phoneNumber) async {
+    if (phoneNumber.isEmpty) {
+      emit(ForgotPasswordError('الرجاء إدخال رقم الهاتف'));
+      return;
+    }
+
+    emit(ForgotPasswordLoading());
+    try {
+      final response = await authApiService.forgotPassword(phoneNumber);
+      
+      final String message = response['message'] ?? 'تم إرسال رمز التحقق بنجاح';
+      emit(ForgotPasswordEmailSentSuccess(message));
+    } catch (e) {
+      emit(ForgotPasswordError(_handleError(e)));
+    }
+  }
+
+  Future<void> resetPassword({
+    required String phoneNumber,
+    required String token,
+    required String newPassword,
+  }) async {
+    if (token.isEmpty || newPassword.isEmpty) {
+      emit(ResetPasswordError('الرجاء ملء جميع الحقول'));
+      return;
+    }
+
+    emit(ResetPasswordLoading());
+    try {
+      final response = await authApiService.resetPassword(
+        phoneNumber: phoneNumber,
+        token: token,
+        newPassword: newPassword,
+      );
+      emit(ResetPasswordSuccess(response['message'] ?? 'تم تغيير كلمة المرور بنجاح'));
+    } catch (e) {
+      emit(ResetPasswordError(e.toString().replaceAll('Exception: ', '')));
+    }
+  }
+
 }
