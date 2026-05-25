@@ -1,5 +1,5 @@
-import 'package:engineers_syndicate_project/features/home/view/pages/event_slider_screen.dart';
-import 'package:engineers_syndicate_project/features/home/view_model/event_cubit.dart';
+import 'package:engineers_syndicate_project/features/events/view/pages/event_slider_screen.dart';
+import 'package:engineers_syndicate_project/features/events/view%20model/event_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

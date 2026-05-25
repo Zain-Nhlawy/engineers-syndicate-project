@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:engineers_syndicate_project/features/home/data/event_model.dart';
-import 'package:engineers_syndicate_project/features/home/view_model/events_state.dart';
+import 'package:engineers_syndicate_project/features/events/model/event_model.dart';
+import 'package:engineers_syndicate_project/features/events/view%20model/events_state.dart';
 
 class EventsCubit extends Cubit<EventsState> {
   EventsCubit() : super(const EventsInitial());

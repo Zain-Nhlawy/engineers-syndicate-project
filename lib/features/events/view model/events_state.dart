@@ -1,4 +1,4 @@
-import 'package:engineers_syndicate_project/features/home/data/event_model.dart';
+import 'package:engineers_syndicate_project/features/events/model/event_model.dart';
 
 abstract class EventsState {
   final int currentIndex;

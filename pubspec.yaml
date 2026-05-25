@@ -39,12 +39,8 @@ dependencies:
   flutter_secure_storage: ^10.2.0
   flutter_bloc: ^9.1.1
   get_it: ^7.7.0
-<<<<<<< HEAD
   jwt_decoder: ^2.0.1
-=======
-  flutter:
-    sdk: flutter
->>>>>>> 01c97c6c78bd97b4a3b4e768568cc21fceb6ab03
+
 
 dev_dependencies:
   flutter_test:

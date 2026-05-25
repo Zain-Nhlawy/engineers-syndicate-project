@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:engineers_syndicate_project/features/home/view/widgets/event_card_widget.dart';
-import 'package:engineers_syndicate_project/features/home/view_model/event_cubit.dart';
-import 'package:engineers_syndicate_project/features/home/view_model/events_state.dart';
+import 'package:engineers_syndicate_project/features/events/view/widgets/event_card_widget.dart';
+import 'package:engineers_syndicate_project/features/events/view%20model/event_cubit.dart';
+import 'package:engineers_syndicate_project/features/events/view%20model/events_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
