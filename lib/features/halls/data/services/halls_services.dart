@@ -4,12 +4,16 @@ import 'package:get_it/get_it.dart';
 
 class HallsServices {
   final DioClient _dioClient = GetIt.instance<DioClient>();
-
-  Future<List<HallsModel>> getHalls() async {
+  Future<List<HallsModel>> getHalls(int buildingId) async {
     try {
-      final response = await _dioClient.dio.get('rooms');
+      final response = await _dioClient.dio.get(
+        'rooms',
+        queryParameters: {
+          'buildingId': buildingId.toString(),
+          'with': 'images',
+        },
+      );
       final data = response.data;
-
       if (response.statusCode == 200 && data['data'] != null) {
         final List<dynamic> dataList = data['data'];
         return dataList.map((json) => HallsModel.fromJson(json)).toList();

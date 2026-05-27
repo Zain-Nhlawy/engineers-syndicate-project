@@ -111,16 +111,19 @@ catch (e) {
   }
 
   String _handleError(dynamic e) {
-    final msg = e.toString();
-    if (msg.contains('401')) {
-      return 'رقم الهاتف أو كلمة المرور غير صحيحة';
-    } else if (msg.contains('500')) {
-      return 'خطأ في السيرفر الداخلي';
-    } else if (msg.contains('SocketException')) {
-      return 'لا يوجد اتصال بالإنترنت، تحقق من الشبكة';
-    }
-    return msg;
+  final msg = e.toString();
+    if (msg.contains('23505') || msg.contains('Unique constraint') || msg.contains('phoneNumber')) {
+    return 'رقم الهاتف مسجل مسبقاً، يرجى تسجيل الدخول';
   }
+  if (msg.contains('401')) {
+    return 'رقم الهاتف أو كلمة المرور غير صحيحة';
+  } else if (msg.contains('500')) {
+    return 'حدث خطأ في السيرفر، يرجى المحاولة لاحقاً';
+  } else if (msg.contains('SocketException')) {
+    return 'لا يوجد اتصال بالإنترنت، تحقق من الشبكة';
+  }
+  return 'حدث خطأ غير متوقع، يرجى المحاولة لاحقاً';
+}
 
   Future<void> forgotPassword(String phoneNumber) async {
     if (phoneNumber.isEmpty) {
@@ -160,6 +163,10 @@ catch (e) {
     } catch (e) {
       emit(ResetPasswordError(e.toString().replaceAll('Exception: ', '')));
     }
+  }
+
+  void resetToInitial() {
+    emit(AuthInitial());
   }
 
 }

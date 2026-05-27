@@ -93,7 +93,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           state is ResetPasswordLoading
                               ? const CircularProgressIndicator(color: Color(0xFF054239))
                               : PrimaryButton(
-                                  text: 'تحديث كلمة المرور',
+                                  text: 'تحديث',
                                   buttonColor: const Color(0xFF002623),
                                   onPressed: () {
                                     if (_otpController.text.trim().isEmpty || _passwordController.text.isEmpty) {

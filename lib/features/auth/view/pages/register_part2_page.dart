@@ -106,6 +106,7 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
 
   void _submit() {
     if (!_validateInputs()) return;
+    context.read<AuthCubit>().resetToInitial();
 
     final user = UserModel(
       firstName: widget.firstName,
@@ -255,29 +256,30 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
                                     const SizedBox(height: 40),
 
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.center, 
                                       children: [
-                                        Expanded(
-                                          child: PrimaryButton(
-                                            text: 'السابق',
-                                            buttonColor: const Color(0xFF054239),
-                                            onPressed: () => Navigator.pop(context),
+                                        if (!isLoading) 
+                                          Expanded(
+                                            child: PrimaryButton(
+                                              text: 'السابق',
+                                              buttonColor: const Color(0xFF054239),
+                                              onPressed: () => Navigator.pop(context),
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 10),
-
+                                        if (!isLoading) const SizedBox(width: 10),
                                         Expanded(
-                                          child: PrimaryButton(
-                                            text: isLoading
-                                                ? 'جاري الإنشاء...'
-                                                : 'إنشاء الحساب',
-                                            fontSize: 22,
-                                            buttonColor: const Color(0xFF054239),
-                                            onPressed: isLoading ? null : _submit,
-                                          ),
+                                          child: isLoading
+                                              ? const Center(
+                                                  child: CircularProgressIndicator(color: Color(0xFF054239)),
+                                                )
+                                              : PrimaryButton(
+                                                  text: 'إنشاء',
+                                                  buttonColor: const Color(0xFF054239),
+                                                  onPressed: _submit,
+                                                ),
                                         ),
                                       ],
                                     ),
-
                                     const SizedBox(height: 30),
                                   ],
                                 ),

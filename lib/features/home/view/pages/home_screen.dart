@@ -18,7 +18,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => EventsCubit()..loadEvents()),
-        BlocProvider(create: (context) => HallsCubit()..loadHalls()),
       ],
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -27,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
             return RefreshIndicator(
               onRefresh: () async {
                 context.read<EventsCubit>().loadEvents();
-                context.read<HallsCubit>().loadHalls();
               },
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -88,7 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 15),
-                  const HallsCardView(),
+                  BlocProvider(
+                    create: (context) => HallsCubit()..loadHalls(1),
+                    child: const HallsCardView(),
+                  ),
                   const SizedBox(height: 15),
                   Row(
                     children: [
@@ -116,7 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   const SizedBox(height: 15),
-                  const HallsCardView(),
+                  BlocProvider(
+                    create: (context) => HallsCubit()..loadHalls(2),
+                    child: const HallsCardView(),
+                  ),
                   const SizedBox(height: 150),
                 ],
               ),

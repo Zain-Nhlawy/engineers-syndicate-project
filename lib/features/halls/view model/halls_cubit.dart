@@ -5,15 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HallsCubit extends Cubit<HallsState> {
   final HallsServices _hallsServices = HallsServices();
-
   List<HallsModel> halls = [];
-
   HallsCubit() : super(const HallsInitial());
-
-  void loadHalls() async {
+  void loadHalls(int buildingId) async {
     emit(HallsLoading());
     try {
-      halls = await _hallsServices.getHalls();
+      halls = await _hallsServices.getHalls(buildingId);
       emit(HallsLoaded(halls: halls));
     } catch (e) {
       emit(HallsError(message: "Error fetching halls: $e"));

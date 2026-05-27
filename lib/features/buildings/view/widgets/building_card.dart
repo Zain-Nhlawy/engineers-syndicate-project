@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/models/building_model.dart';
+import 'package:engineers_syndicate_project/dependencies.dart';
 
 class BuildingCard extends StatelessWidget {
   final BuildingModel building;
@@ -31,11 +32,19 @@ class BuildingCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            child: Image.asset(
-              'assets/images/logo.png',
+            child: Image.network(
+              '$baseUrl/${building.imagePath}',
               height: 180,
               width: double.infinity,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/images/logo.png',
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                );
+              },
             ),
           ),
           Padding(
@@ -46,8 +55,8 @@ class BuildingCard extends StatelessWidget {
                 Text(
                   building.name,
                   style: const TextStyle(
-                    fontSize: 22, 
-                    fontWeight: FontWeight.bold, 
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
                     color: Color(0xFF231F20),
                   ),
                 ),
@@ -65,7 +74,7 @@ class BuildingCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                       ),
                       child: const Text(
-                        'تفاصيل', 
+                        'تفاصيل',
                         style: TextStyle(color: Colors.black, fontSize: 16),
                       ),
                     ),
