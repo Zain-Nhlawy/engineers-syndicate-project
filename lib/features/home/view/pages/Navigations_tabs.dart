@@ -18,23 +18,34 @@ class NavigationsTabs extends StatelessWidget {
 
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(70),
+              preferredSize: const Size.fromHeight(65),
               child: AppBar(
                 centerTitle: true,
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                leadingWidth: 0,
+                automaticallyImplyLeading: false,
                 title: Row(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset('assets/images/logo.png', height: 50),
-                    const SizedBox(width: 15),
-                    Text(
-                      'نقابة المهندسين السوريين',
-                      style: TextStyle(
-                        color: theme.colorScheme.secondary,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                    Image.asset('assets/images/logo.png', height: 40),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        'نقابة المهندسين السوريين',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: theme.colorScheme.secondary,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 25),
-                    Container(
+                  ],
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
@@ -44,16 +55,15 @@ class NavigationsTabs extends StatelessWidget {
                       ),
                       child: IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.notifications, size: 28),
+                        icon: const Icon(Icons.notifications, size: 26),
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                  ],
-                ),
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                  ),
+                ],
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(250, 12),
+                    bottom: Radius.elliptical(220, 12),
                   ),
                 ),
               ),
@@ -97,8 +107,8 @@ class NavigationsTabs extends StatelessWidget {
 
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-        height: 80,
+        margin: const EdgeInsets.symmetric(horizontal: 34, vertical: 8),
+        height: 70,
         decoration: BoxDecoration(
           color: colorScheme.primary,
           borderRadius: BorderRadius.circular(25),
@@ -186,7 +196,7 @@ class NavigationsTabs extends StatelessWidget {
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInOut,
               padding: const EdgeInsets.symmetric(vertical: 8),
-              width: 60,
+              width: 50,
               decoration: BoxDecoration(
                 color: isActive
                     ? colorScheme.primaryContainer
@@ -195,7 +205,7 @@ class NavigationsTabs extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                size: 32,
+                size: 24,
                 color: isActive
                     ? colorScheme.surface
                     : colorScheme.surface.withOpacity(0.9),

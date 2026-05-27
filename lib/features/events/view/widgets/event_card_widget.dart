@@ -1,4 +1,4 @@
-import 'package:engineers_syndicate_project/features/events/model/event_model.dart';
+import 'package:engineers_syndicate_project/features/events/data/model/event_model.dart';
 import 'package:flutter/material.dart';
 
 class EventCardWidget extends StatelessWidget {
@@ -9,7 +9,7 @@ class EventCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -34,13 +34,13 @@ class EventCardWidget extends StatelessWidget {
                   top: Radius.circular(16),
                 ),
                 child: Image.asset(
-                  event.imageUrl,
-                  height: 110,
+                  'assets/images/test.png',
+                  height: 100,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return SizedBox(
-                      height: 140,
+                      height: 100,
                       child: const Icon(Icons.image, size: 50),
                     );
                   },
@@ -55,9 +55,9 @@ class EventCardWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      event.title,
+                      event.eventTitle!,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: theme.colorScheme.onSurface,
                       ),
@@ -65,9 +65,9 @@ class EventCardWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      event.date,
+                      event.startTimestamp!,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: theme.colorScheme.primaryContainer,
                       ),

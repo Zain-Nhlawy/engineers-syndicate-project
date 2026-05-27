@@ -32,18 +32,27 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
 
       final cubit = context.read<EventsCubit>();
       if (cubit.state is EventsLoaded) {
-        int nextStateIndex = cubit.state.currentIndex + 1;
+        final currentState = cubit.state as EventsLoaded;
+        final totalEvents = currentState.events.length;
 
-        if (nextStateIndex >= 3) {
-          nextStateIndex = 0;
+        if (totalEvents <= 1) return;
+
+        int nextIndex = currentState.currentIndex + 1;
+
+        if (nextIndex >= totalEvents) {
+          nextIndex = 0;
         }
 
         if (_pageController.hasClients) {
-          _pageController.animateToPage(
-            nextStateIndex,
-            duration: const Duration(milliseconds: 1000),
-            curve: Curves.easeOutCubic,
-          );
+          if (nextIndex == 0) {
+            _pageController.jumpToPage(0);
+          } else {
+            _pageController.animateToPage(
+              nextIndex,
+              duration: const Duration(milliseconds: 800),
+              curve: Curves.easeInOut,
+            );
+          }
         }
       }
     });
@@ -67,11 +76,17 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
         if (state is EventsLoaded) {
           if (state.events.isEmpty) return const SizedBox.shrink();
 
+          int indicatorCount = state.events.length > 3
+              ? 3
+              : state.events.length;
+          int activeIndicatorIndex = state.currentIndex % indicatorCount;
+
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: 220,
+                height: 200,
+                width: 350,
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: state.events.length,
@@ -109,18 +124,18 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(3, (index) {
-                  final isSelected = state.currentIndex == index;
+                children: List.generate(indicatorCount, (index) {
+                  final isSelected = activeIndicatorIndex == index;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     margin: const EdgeInsets.symmetric(horizontal: 4),
                     height: 8,
-                    width: isSelected ? 12 : 8,
+                    width: isSelected ? 16 : 8,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(4),
                       color: isSelected
                           ? theme.colorScheme.primary
                           : Colors.grey.withOpacity(0.4),

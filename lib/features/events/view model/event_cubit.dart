@@ -1,36 +1,28 @@
+import 'package:engineers_syndicate_project/features/events/data/model/event_model.dart';
+import 'package:engineers_syndicate_project/features/events/data/service/events_services.dart';
+import 'package:engineers_syndicate_project/features/events/view%20model/events_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:engineers_syndicate_project/features/events/model/event_model.dart';
-import 'package:engineers_syndicate_project/features/events/view%20model/events_state.dart';
-
 class EventsCubit extends Cubit<EventsState> {
+  final EventsServices _eventsServices = EventsServices();
+
+  List<EventModel> events = [];
+
   EventsCubit() : super(const EventsInitial());
 
-  final List<EventModel> _mockEvents = [
-    EventModel(
-      title: 'حفل ذكرى التحرير',
-      date: '8 ديسمبر - 7 مساءً',
-      imageUrl: 'assets/images/logo.png',
-    ),
-    EventModel(
-      title: 'حفل افتتاح المعرض',
-      date: '9 ديسمبر - 5 مساءً',
-      imageUrl: 'assets/images/logo.png',
-    ),
-    EventModel(
-      title: 'ندوة حوارية ثقافية',
-      date: '10 ديسمبر - 6 مساءً',
-      imageUrl: 'assets/images/logo.png',
-    ),
-  ];
-
-  void loadEvents() {
-    emit(EventsLoaded(events: _mockEvents, currentIndex: 0));
+  void loadEvents() async {
+    emit(EventsLoading());
+    try {
+      events = await _eventsServices.getEvents();
+      emit(EventsLoaded(events: events, currentIndex: 0));
+    } catch (e) {
+      print("Error fetching events: $e");
+    }
   }
 
   void updateIndex(int index) {
     if (state is EventsLoaded) {
-      emit(EventsLoaded(events: _mockEvents, currentIndex: index));
+      emit(EventsLoaded(events: events, currentIndex: index));
     }
   }
 }
