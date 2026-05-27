@@ -23,4 +23,18 @@ class HallsServices {
       throw Exception('حدث خطأ أثناء جلب القاعات: $e');
     }
   }
+
+  Future<HallsModel> getHallDetails(int roomId) async {
+    try {
+      final response = await _dioClient.dio.get('rooms/$roomId');
+      final data = response.data;
+      
+      if (response.statusCode == 200 && data['data'] != null) {
+        return HallsModel.fromJson(data['data']);
+      }
+      throw Exception(data['message'] ?? 'فشل في جلب تفاصيل القاعة');
+    } catch (e) {
+      throw Exception('حدث خطأ أثناء جلب تفاصيل القاعة: $e');
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import '../../data/models/building_model.dart';
 import 'package:engineers_syndicate_project/dependencies.dart';
@@ -17,7 +18,7 @@ class BuildingCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: ColorTheme.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -57,7 +58,7 @@ class BuildingCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF231F20),
+                    color: ColorTheme.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -67,7 +68,7 @@ class BuildingCard extends StatelessWidget {
                     OutlinedButton(
                       onPressed: onDetailsPressed,
                       style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: Colors.black, width: 1.2),
+                        side: const BorderSide(color: ColorTheme.primary, width: 1.2),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -75,12 +76,12 @@ class BuildingCard extends StatelessWidget {
                       ),
                       child: const Text(
                         'تفاصيل',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style: TextStyle(color: ColorTheme.primary, fontSize: 16),
                       ),
                     ),
                     Text(
                       building.workingHours,
-                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                      style: TextStyle(fontSize: 16, color: ColorTheme.textPrimary.withOpacity(0.7)),
                     ),
                   ],
                 ),

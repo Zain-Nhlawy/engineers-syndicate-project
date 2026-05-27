@@ -1,14 +1,15 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class AuthTextLink extends StatelessWidget {
-    final String text;
-    final String actionText;
-    final VoidCallback? onTap;
-    final Color? textColor;
-    final Color? actionColor;
-    final double? fontSize;
+  final String text;
+  final String actionText;
+  final VoidCallback? onTap;
+  final Color? textColor;
+  final Color? actionColor;
+  final double? fontSize;
 
-    const AuthTextLink({
+  const AuthTextLink({
     super.key,
     required this.text,
     required this.actionText,
@@ -16,32 +17,33 @@ class AuthTextLink extends StatelessWidget {
     this.textColor,
     this.actionColor,
     this.fontSize,
-    });
+  });
 
-    @override
-    Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
         Text(
-            text,
-            style: TextStyle(
-            color: textColor ?? Colors.black,
-            fontSize: fontSize ?? 14, 
-            ),
+          text,
+          style: TextStyle(
+            color: textColor ?? ColorTheme.textSecondary,
+            fontSize: fontSize ?? 14,
+          ),
         ),
+        const SizedBox(width: 5), 
         GestureDetector(
-            onTap: onTap,
-            child: Text(
+          onTap: onTap,
+          child: Text(
             actionText,
             style: TextStyle(
-                color: actionColor ?? Colors.teal,
-                fontWeight: FontWeight.normal,
-                fontSize: fontSize ?? 14,
+              color: actionColor ?? ColorTheme.accent,
+              fontWeight: FontWeight.bold, 
+              fontSize: fontSize ?? 14,
             ),
-            ),
+          ),
         ),
-        ],
+      ],
     );
-    }
+  }
 }

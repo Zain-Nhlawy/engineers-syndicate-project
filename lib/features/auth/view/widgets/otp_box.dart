@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class OtpBox extends StatelessWidget {
@@ -23,24 +24,24 @@ class OtpBox extends StatelessWidget {
         textAlign: TextAlign.center,
         maxLength: 1,
         style: const TextStyle(
-          color: Colors.white,
+          color: ColorTheme.textLight,
           fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
         decoration: InputDecoration(
           counterText: "",
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.white24),
+            borderSide: const BorderSide(color: ColorTheme.accent),
             borderRadius: BorderRadius.circular(12),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.amber, width: 2),
+            borderSide: const BorderSide(color: ColorTheme.accent, width: 2),
             borderRadius: BorderRadius.circular(12),
           ),
-          fillColor: Colors.white.withOpacity(0.1),
+          fillColor: ColorTheme.surface.withOpacity(0.1),
           filled: true,
         ),
-        onChanged: onChanged, 
+        onChanged: onChanged,
       ),
     );
   }

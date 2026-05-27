@@ -1,5 +1,7 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:engineers_syndicate_project/features/halls/data/model/halls_model.dart';
+import 'package:engineers_syndicate_project/features/halls/view/widgets/hall_details_dialog.dart';
 
 class HallsCard2 extends StatelessWidget {
   final HallsModel halls;
@@ -28,12 +30,12 @@ class HallsCard2 extends StatelessWidget {
               Positioned(
                 top: 10,
                 left: 10,
-                child: _buildInfoIcon(Icons.person, '${halls.capacityLimit ?? 0}', Colors.white),
+                child: _buildInfoIcon(Icons.person, '${halls.capacityLimit ?? 0}'),
               ),
               Positioned(
                 top: 10,
                 right: 10,
-                child: _buildInfoIcon(Icons.attach_money, '${halls.pricePerHour ?? 0}', Colors.white),
+                child: _buildInfoIcon(Icons.attach_money, '${halls.pricePerHour ?? 0}'),
               ),
             ],
           ),
@@ -47,17 +49,19 @@ class HallsCard2 extends StatelessWidget {
                   children: [
                     Text(
                       'القاعة رقم ${halls.roomNumber}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: ColorTheme.textPrimary),
                     ),
                   ],
                 ),
                 OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showHallDetailsDialog(context, halls.id ?? 0);
+                  },
                   style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.black),
+                    side: const BorderSide(color: ColorTheme.primary),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
-                  child: const Text('تفاصيل'),
+                  child: const Text('تفاصيل', style: TextStyle(color: ColorTheme.primary)),
                 ),
               ],
             ),
@@ -67,7 +71,7 @@ class HallsCard2 extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoIcon(IconData icon, String text, Color color) {
+  Widget _buildInfoIcon(IconData icon, String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -76,9 +80,9 @@ class HallsCard2 extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: color),
+          Icon(icon, size: 16, color: Colors.white),
           const SizedBox(width: 4),
-          Text(text, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         ],
       ),
     );

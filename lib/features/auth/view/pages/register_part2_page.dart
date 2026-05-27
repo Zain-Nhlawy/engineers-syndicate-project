@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/features/auth/view/pages/verify_otp_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,6 @@ import '../../view_model/auth_state.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/top_curve_clipper.dart';
-
 
 class RegisterPart2Page extends StatefulWidget {
   final String firstName;
@@ -24,8 +24,7 @@ class RegisterPart2Page extends StatefulWidget {
   });
 
   @override
-  State<RegisterPart2Page> createState() =>
-      _RegisterPart2PageState();
+  State<RegisterPart2Page> createState() => _RegisterPart2PageState();
 }
 
 class _RegisterPart2PageState extends State<RegisterPart2Page>
@@ -40,7 +39,6 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -79,35 +77,30 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
       _showMsg('يرجى تعبئة جميع الحقول');
       return false;
     }
-
     if (phone.length < 10) {
       _showMsg('رقم الهاتف غير صحيح');
       return false;
     }
-
     if (pass.length < 6) {
       _showMsg('كلمة المرور يجب أن تكون 6 أحرف على الأقل');
       return false;
     }
-
     if (pass != confirm) {
       _showMsg('كلمتا المرور غير متطابقتين');
       return false;
     }
-
     return true;
   }
 
   void _showMsg(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg)),
+      SnackBar(content: Text(msg), backgroundColor: ColorTheme.onError),
     );
   }
 
   void _submit() {
     if (!_validateInputs()) return;
     context.read<AuthCubit>().resetToInitial();
-
     final user = UserModel(
       firstName: widget.firstName,
       lastName: widget.lastName,
@@ -116,7 +109,6 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
       phoneNumber: phoneController.text.trim(),
       password: passwordController.text.trim(),
     );
-
     context.read<AuthCubit>().signUp(user);
   }
 
@@ -135,7 +127,6 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
               ),
             );
           }
-
           if (state is AuthError) {
             _showMsg(state.error);
           }
@@ -146,30 +137,19 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
           return Stack(
             children: [
               Positioned.fill(
-                child: Container(
-                  color: const Color(0xFFEDEBE0).withOpacity(0.90),
-                ),
+                child: Container(color: ColorTheme.surface.withOpacity(0.90)),
               ),
-
               Positioned.fill(
-                child: Image.asset(
-                  'assets/images/background.png',
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
               ),
-
               SafeArea(
                 child: Center(
                   child: Transform.translate(
                     offset: Offset(0, -h * 0.34),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: 200,
-                    ),
+                    child: Image.asset('assets/images/logo.png', height: 200),
                   ),
                 ),
               ),
-
               Positioned(
                 top: h * 0.32,
                 left: 0,
@@ -180,20 +160,16 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
                   child: ClipPath(
                     clipper: TopCurveClipper(),
                     child: Container(
-                      color: const Color(0xFF002623),
+                      color: ColorTheme.primary,
                       child: Column(
                         children: [
                           const Padding(
                             padding: EdgeInsets.only(top: 40, bottom: 10),
                             child: Text(
                               'معلومات الحساب',
-                              style: TextStyle(
-                                fontSize: 28,
-                                color: Colors.white,
-                              ),
+                              style: TextStyle(fontSize: 28, color: ColorTheme.textLight),
                             ),
                           ),
-
                           Expanded(
                             child: SingleChildScrollView(
                               child: Padding(
@@ -201,80 +177,36 @@ class _RegisterPart2PageState extends State<RegisterPart2Page>
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                    const Text(
-                                      'رقم الهاتف',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                      ),
-                                    ),
+                                    const Text('رقم الهاتف', style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
                                     const SizedBox(height: 10),
-
-                                    CustomTextField(
-                                      hint: '',
-                                      icon: Icons.phone,
-                                      controller: phoneController,
-                                      keyboardType: TextInputType.phone,
-                                    ),
-
+                                    CustomTextField(hint: '', icon: Icons.phone, controller: phoneController, keyboardType: TextInputType.phone),
                                     const SizedBox(height: 25),
-
-                                    const Text(
-                                      'كلمة المرور',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                      ),
-                                    ),
+                                    const Text('كلمة المرور', style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
                                     const SizedBox(height: 10),
-
-                                    CustomTextField(
-                                      hint: '',
-                                      icon: Icons.lock,
-                                      isPassword: true,
-                                      controller: passwordController,
-                                    ),
-
+                                    CustomTextField(hint: '', icon: Icons.lock, isPassword: true, controller: passwordController),
                                     const SizedBox(height: 25),
-
-                                    const Text(
-                                      'تأكيد كلمة المرور',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22,
-                                      ),
-                                    ),
+                                    const Text('تأكيد كلمة المرور', style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
                                     const SizedBox(height: 10),
-
-                                    CustomTextField(
-                                      hint: '',
-                                      icon: Icons.lock,
-                                      isPassword: true,
-                                      controller: confirmPasswordController,
-                                    ),
-
+                                    CustomTextField(hint: '', icon: Icons.lock, isPassword: true, controller: confirmPasswordController),
                                     const SizedBox(height: 40),
-
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center, 
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        if (!isLoading) 
+                                        if (!isLoading)
                                           Expanded(
                                             child: PrimaryButton(
                                               text: 'السابق',
-                                              buttonColor: const Color(0xFF054239),
+                                              buttonColor: ColorTheme.primaryContainer,
                                               onPressed: () => Navigator.pop(context),
                                             ),
                                           ),
                                         if (!isLoading) const SizedBox(width: 10),
                                         Expanded(
                                           child: isLoading
-                                              ? const Center(
-                                                  child: CircularProgressIndicator(color: Color(0xFF054239)),
-                                                )
+                                              ? const Center(child: CircularProgressIndicator(color: ColorTheme.textLight))
                                               : PrimaryButton(
                                                   text: 'إنشاء',
-                                                  buttonColor: const Color(0xFF054239),
+                                                  buttonColor: ColorTheme.primaryContainer,
                                                   onPressed: _submit,
                                                 ),
                                         ),

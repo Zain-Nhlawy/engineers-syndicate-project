@@ -1,22 +1,15 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hint;
-
   final IconData icon;
-
   final IconData? suffixIcon;
-
   final VoidCallback? onSuffixTap;
-
   final bool isPassword;
-
   final TextEditingController? controller;
-
   final double? width;
-
   final double? height;
-
   final TextInputType keyboardType;
 
   const CustomTextField({
@@ -33,18 +26,15 @@ class CustomTextField extends StatefulWidget {
   });
 
   @override
-  State<CustomTextField> createState() =>
-      _CustomTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _CustomTextFieldState
-    extends State<CustomTextField> {
+class _CustomTextFieldState extends State<CustomTextField> {
   late bool _obscureText;
 
   @override
   void initState() {
     super.initState();
-
     _obscureText = widget.isPassword;
   }
 
@@ -57,102 +47,50 @@ class _CustomTextFieldState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 25),
       child: SizedBox(
         width: widget.width ?? double.infinity,
         height: widget.height ?? 50,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
-
+            color: ColorTheme.surface,
             boxShadow: [
               BoxShadow(
-                color:
-                    Colors.black.withOpacity(0.08),
+                color: ColorTheme.textPrimary,
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
             ],
-
-            border: Border.all(
-              color:
-                  Colors.black.withOpacity(0.1),
-            ),
-
-            borderRadius:
-                BorderRadius.circular(12),
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(12),
           ),
-
           child: TextField(
             controller: widget.controller,
-
             obscureText: _obscureText,
-
             keyboardType: widget.keyboardType,
-
             textDirection: TextDirection.rtl,
-
             textAlign: TextAlign.right,
-
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black87,
-              fontWeight: FontWeight.normal,
-            ),
-
+            style: const TextStyle(fontSize: 16, color: ColorTheme.textPrimary),
             decoration: InputDecoration(
               hintText: widget.hint,
-
-              hintStyle: const TextStyle(
-                color: Colors.black54,
-                fontSize: 18,
-              ),
-
-              prefixIcon: Icon(
-                widget.icon,
-                color:
-                    Colors.black.withOpacity(0.6),
-              ),
-
+              hintStyle: const TextStyle(color: ColorTheme.textSecondary, fontSize: 18),
+              prefixIcon: Icon(widget.icon, color: ColorTheme.primary),
               suffixIcon: widget.isPassword
                   ? IconButton(
-                      onPressed:
-                          _toggleVisibility,
-
+                      onPressed: _toggleVisibility,
                       icon: Icon(
-                        _obscureText
-                            ? Icons
-                                .visibility_off
-                            : Icons.visibility,
-
-                        color: Colors.black
-                            .withOpacity(0.6),
+                        _obscureText ? Icons.visibility_off : Icons.visibility,
+                        color: ColorTheme.primary,
                       ),
                     )
                   : (widget.suffixIcon != null
                       ? GestureDetector(
-                          onTap:
-                              widget.onSuffixTap,
-
-                          child: Icon(
-                            widget.suffixIcon,
-
-                            color: Colors.black
-                                .withOpacity(
-                              0.6,
-                            ),
-                          ),
+                          onTap: widget.onSuffixTap,
+                          child: Icon(widget.suffixIcon, color: ColorTheme.primary),
                         )
                       : null),
-
               border: InputBorder.none,
-
-              contentPadding:
-                  const EdgeInsets.symmetric(
-                vertical: 16,
-                horizontal: 12,
-              ),
+              contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
             ),
           ),
         ),

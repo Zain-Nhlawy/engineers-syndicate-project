@@ -1,37 +1,36 @@
 class HallsModel {
-  int? id;
-  String? roomNumber;
-  int? capacityLimit;
-  int? pricePerHour;
-  String? status;
-  String? roomType;
-  int? buildingId;
-  List<String>? images;
+  final int id;
+  final String roomNumber;
+  final int capacityLimit;
+  final int pricePerHour; 
+  final String status;
+  final String roomType;
+  final int buildingId;
+  final List<String> images;
 
-  HallsModel  ({
-    this.id,
-    this.roomNumber,
-    this.capacityLimit,
-    this.pricePerHour,
-    this.status,
-    this.roomType,
-    this.buildingId,
-    this.images,
+  HallsModel({
+    required this.id,
+    required this.roomNumber,
+    required this.capacityLimit,
+    required this.pricePerHour,
+    required this.status,
+    required this.roomType,
+    required this.buildingId,
+    required this.images,
   });
 
-  HallsModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'] ?? 0;
-    roomNumber = json['roomNumber'] ?? ' ';
-    capacityLimit = json['capacityLimit'] ?? 0;
-    pricePerHour = json['pricePerHour'] ?? 0;
-    status = json['status'] ?? ' ';
-    roomType = json['roomType'] ?? ' ';
-    buildingId = json['buildingId'] ?? 0;
-    if (json['images'] != null) {
-      images = <String>[];
-      json['images'].forEach((v) {
-        images!.add(v);
-      });
-    }
+  factory HallsModel.fromJson(Map<String, dynamic> json) {
+    return HallsModel(
+      id: json['id'] ?? 0,
+      roomNumber: (json['roomNumber'] ?? '').toString(),
+      capacityLimit: json['capacityLimit'] ?? 0,
+      pricePerHour: (json['pricePerHour'] ?? 0).toInt(),
+      status: json['status'] ?? '',
+      roomType: json['roomType'] ?? '',
+      buildingId: json['buildingId'] ?? 0,
+      images: json['images'] != null 
+          ? List<String>.from(json['images']) 
+          : [],
+    );
   }
 }

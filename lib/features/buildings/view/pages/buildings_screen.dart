@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/core/di/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,20 +14,19 @@ class BuildingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<BuildingsCubit>()..fetchBuildings(),
-      
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: BlocBuilder<BuildingsCubit, BuildingsState>(
           builder: (context, state) {
             if (state is BuildingsLoading) {
               return const Center(
-                child: CircularProgressIndicator(color: Color(0xFF054239)),
+                child: CircularProgressIndicator(color: ColorTheme.primary),
               );
             } else if (state is BuildingsError) {
               return Center(
                 child: Text(
-                  state.error, 
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  state.error,
+                  style: const TextStyle(color: ColorTheme.onError, fontSize: 16),
                 ),
               );
             } else if (state is BuildingsSuccess) {
@@ -34,7 +34,10 @@ class BuildingsScreen extends StatelessWidget {
 
               if (buildings.isEmpty) {
                 return const Center(
-                  child: Text('لا يوجد أبنية مضافة حالياً', style: TextStyle(fontSize: 18)),
+                  child: Text(
+                    'لا يوجد أبنية مضافة حالياً',
+                    style: TextStyle(fontSize: 18, color: ColorTheme.textPrimary),
+                  ),
                 );
               }
 

@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/features/halls/data/services/halls_services.dart';
 import 'package:engineers_syndicate_project/features/buildings/data/service/buildings_api_service.dart';
 import 'package:engineers_syndicate_project/features/buildings/view_model/buildings_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -31,6 +32,10 @@ void setupLocator() {
 
   getIt.registerLazySingleton<BuildingsApiService>(
     () => BuildingsApiService(),
+  );
+
+  getIt.registerLazySingleton<HallsServices>(
+    () => HallsServices(),
   );
   
   getIt.registerFactory<AuthCubit>(

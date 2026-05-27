@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_cubit.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_state.dart' show ResetPasswordLoading, ResetPasswordSuccess, ResetPasswordError, AuthState;
 import 'package:flutter/material.dart';
@@ -32,12 +33,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         listener: (context, state) {
           if (state is ResetPasswordError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+              SnackBar(content: Text(state.error), backgroundColor: ColorTheme.onError),
             );
           }
           if (state is ResetPasswordSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message), backgroundColor: Colors.green),
+              SnackBar(content: Text(state.message), backgroundColor: ColorTheme.primary),
             );
             Navigator.of(context).popUntil((route) => route.isFirst);
           }
@@ -46,7 +47,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           return Stack(
             children: [
               Positioned.fill(
-                child: Container(color: const Color(0xFFEDEBE0).withOpacity(0.90)),
+                child: Container(color: ColorTheme.surface.withOpacity(0.90)),
               ),
               Positioned.fill(
                 child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
@@ -65,7 +66,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           const SizedBox(height: 20),
                           const Text(
                             'تأكيد الهوية والتعيين',
-                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFFB9A779)),
+                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: ColorTheme.accent),
                           ),
                           const SizedBox(height: 30),
                           
@@ -91,10 +92,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           const SizedBox(height: 40),
                           
                           state is ResetPasswordLoading
-                              ? const CircularProgressIndicator(color: Color(0xFF054239))
+                              ? const CircularProgressIndicator(color: ColorTheme.textLight)
                               : PrimaryButton(
                                   text: 'تحديث',
-                                  buttonColor: const Color(0xFF002623),
+                                  buttonColor: ColorTheme.primary,
                                   onPressed: () {
                                     if (_otpController.text.trim().isEmpty || _passwordController.text.isEmpty) {
                                       ScaffoldMessenger.of(context).showSnackBar(
@@ -103,16 +104,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                       return;
                                     }
                                     context.read<AuthCubit>().resetPassword(
-                                          phoneNumber: widget.phoneNumber,
-                                          token: _otpController.text.trim(),
-                                          newPassword: _passwordController.text,
-                                        );
+                                      phoneNumber: widget.phoneNumber,
+                                      token: _otpController.text.trim(),
+                                      newPassword: _passwordController.text,
+                                    );
                                   },
                                 ),
                           const SizedBox(height: 20),
                           TextButton(
                             onPressed: () => Navigator.of(context).popUntil((route) => route.isFirst),
-                            child: const Text('إلغاء والعودة للرئيسية', style: TextStyle(color: Colors.black54)),
+                            child: const Text('إلغاء والعودة للرئيسية', style: TextStyle(color: ColorTheme.textSecondary)),
                           )
                         ],
                       ),

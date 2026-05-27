@@ -1,4 +1,4 @@
-
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/features/auth/view/pages/forgot_password_page.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_cubit.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_state.dart';
@@ -35,13 +35,13 @@ class _LoginPageState extends State<LoginPage> {
         listener: (context, state) {
           if (state is AuthError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+              SnackBar(content: Text(state.error), backgroundColor: ColorTheme.onError),
             );
           }
           if (state is AuthLoginSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('تم تسجيل الدخول بنجاح'), 
+                content: Text('تم تسجيل الدخول بنجاح'),
                 backgroundColor: Colors.green,
               ),
             );
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Positioned.fill(
                 child: Container(
-                  color: const Color(0xFFEDEBE0).withOpacity(0.90),
+                  color: ColorTheme.surface.withOpacity(0.90),
                 ),
               ),
               Positioned.fill(
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFFB9A779),
+                              color: ColorTheme.accent,
                             ),
                           ),
                           const SizedBox(height: 30),
@@ -96,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                             style: TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.normal,
+                              color: ColorTheme.textPrimary,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: '',
                             actionText: 'نسيت كلمة المرور',
                             fontSize: 16,
-                            actionColor: const Color(0xFF000000),
+                            actionColor: ColorTheme.textPrimary,
                             onTap: () {
                               Navigator.push(
                                 context,
@@ -133,12 +134,11 @@ class _LoginPageState extends State<LoginPage> {
                             },
                           ),
                           const SizedBox(height: 40),
-                          
                           state is AuthLoading
-                              ? const CircularProgressIndicator(color: Color(0xFF054239))
+                              ? const CircularProgressIndicator(color: ColorTheme.primary)
                               : PrimaryButton(
                                   text: 'تسجيل الدخول',
-                                  buttonColor: const Color(0xFF002623),
+                                  buttonColor: ColorTheme.primary,
                                   onPressed: () {
                                     context.read<AuthCubit>().signIn(
                                           _phoneController.text.trim(),
@@ -151,8 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                             text: 'ليس لديك حساب؟ ',
                             actionText: 'سجل الآن',
                             fontSize: 18,
-                            textColor: const Color(0xFF000000),
-                            actionColor: const Color(0xFF054239),
+                            textColor: ColorTheme.textPrimary,
+                            actionColor: ColorTheme.primary,
                             onTap: () {
                               Navigator.push(
                                 context,

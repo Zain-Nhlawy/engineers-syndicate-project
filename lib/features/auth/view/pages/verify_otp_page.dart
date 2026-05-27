@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/features/auth/view/widgets/otp_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,14 +63,16 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (_secondsRemaining > 0) {
-          _secondsRemaining--;
-        } else {
-          _canResend = true;
-          _timer?.cancel();
-        }
-      });
+      if (mounted) {
+        setState(() {
+          if (_secondsRemaining > 0) {
+            _secondsRemaining--;
+          } else {
+            _canResend = true;
+            _timer?.cancel();
+          }
+        });
+      }
     });
   }
 
@@ -94,7 +97,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
     final code = _getOtpCode();
     if (code.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يرجى إدخال الكود كاملاً')),
+        const SnackBar(content: Text('يرجى إدخال الكود كاملاً'), backgroundColor: ColorTheme.onError),
       );
       return;
     }
@@ -113,19 +116,18 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
         listener: (context, state) {
           if (state is AuthOtpSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
+              SnackBar(content: Text(state.message), backgroundColor: ColorTheme.primary),
             );
             Navigator.of(context).popUntil((route) => route.isFirst);
           }
           if (state is AuthOtpError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error),
-              backgroundColor: Colors.red,),
+              SnackBar(content: Text(state.error), backgroundColor: ColorTheme.onError),
             );
           }
           if (state is AuthResendOtpSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.message)),
+              SnackBar(content: Text(state.message), backgroundColor: ColorTheme.primary),
             );
             _startTimer();
           }
@@ -136,22 +138,16 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
           return Stack(
             children: [
               Positioned.fill(
-                child: Container(color: const Color(0xFFEDEBE0).withOpacity(0.9)),
+                child: Container(color: ColorTheme.surface.withOpacity(0.9)),
               ),
               Positioned.fill(
-                child: Image.asset(
-                  'assets/images/background.png',
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
               ),
               SafeArea(
                 child: Center(
                   child: Transform.translate(
                     offset: Offset(0, -h * 0.32),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: 180,
-                    ),
+                    child: Image.asset('assets/images/logo.png', height: 180),
                   ),
                 ),
               ),
@@ -165,7 +161,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
                   child: ClipPath(
                     clipper: TopCurveClipper(),
                     child: Container(
-                      color: const Color(0xFF002623),
+                      color: ColorTheme.primary,
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -174,20 +170,13 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
                               const SizedBox(height: 50),
                               const Text(
                                 'تأكيد الحساب',
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(fontSize: 28, color: ColorTheme.textLight, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 15),
                               Text(
                                 'تم إرسال رمز التحقق إلى الرقم\n ${widget.phoneNumber}',
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white70,
-                                ),
+                                style: const TextStyle(fontSize: 18, color: ColorTheme.textLight),
                               ),
                               const SizedBox(height: 40),
                               Directionality(
@@ -201,15 +190,10 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
                                       focusNode: _focusNodes[index],
                                       onChanged: (value) {
                                         if (value.isNotEmpty) {
-                                          if (index < 5) {
-                                            FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-                                          } else {
-                                            _focusNodes[index].unfocus();
-                                          }
+                                          if (index < 5) FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
+                                          else _focusNodes[index].unfocus();
                                         } else {
-                                          if (index > 0) {
-                                            FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
-                                          }
+                                          if (index > 0) FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
                                         }
                                       },
                                     ),
@@ -218,22 +202,15 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
                               ),
                               const SizedBox(height: 35),
                               Text(
-                                _canResend
-                                    ? "يمكنك الآن إعادة طلب الكود"
-                                    : "إعادة إرسال الكود خلال $_secondsRemaining ثانية",
-                                style: const TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 16,
-                                ),
+                                _canResend ? "يمكنك الآن إعادة طلب الكود" : "إعادة إرسال الكود خلال $_secondsRemaining ثانية",
+                                style: const TextStyle(color: ColorTheme.textLight, fontSize: 16),
                               ),
                               TextButton(
-                                onPressed: _canResend
-                                    ? () => context.read<AuthCubit>().resendAccountOtp(widget.phoneNumber)
-                                    : null,
+                                onPressed: _canResend ? () => context.read<AuthCubit>().resendAccountOtp(widget.phoneNumber) : null,
                                 child: Text(
                                   'إعادة إرسال',
                                   style: TextStyle(
-                                    color: _canResend ? Colors.amber : Colors.grey,
+                                    color: _canResend ? ColorTheme.accent : ColorTheme.textSecondary,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
@@ -242,7 +219,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage>
                               const SizedBox(height: 25),
                               PrimaryButton(
                                 text: isLoading ? 'جاري التحقق...' : 'تأكيد الحساب',
-                                buttonColor: const Color(0xFF054239),
+                                buttonColor: ColorTheme.textSecondary,
                                 onPressed: isLoading ? null : _submitVerify,
                               ),
                               const SizedBox(height: 25),

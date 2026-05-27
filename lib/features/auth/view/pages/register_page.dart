@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/primary_button.dart';
@@ -8,37 +9,24 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
-  State<RegisterPage> createState() =>
-      _RegisterPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState
-    extends State<RegisterPage>
-    with SingleTickerProviderStateMixin {
+class _RegisterPageState extends State<RegisterPage> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-
   late Animation<Offset> _slideAnimation;
 
-  final firstNameController =
-      TextEditingController();
-
-  final lastNameController =
-      TextEditingController();
-
-  final nationalIdController =
-      TextEditingController();
-
-  final engineeringNumberController =
-      TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final nationalIdController = TextEditingController();
+  final engineeringNumberController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       vsync: this,
-      duration:
-          const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
     );
 
     _slideAnimation = Tween<Offset>(
@@ -51,23 +39,18 @@ class _RegisterPageState
       ),
     );
 
-    Future.delayed(
-      const Duration(milliseconds: 200),
-      () {
-        _animationController.forward();
-      },
-    );
+    Future.delayed(const Duration(milliseconds: 200), () {
+      _animationController.forward();
+    });
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-
     firstNameController.dispose();
     lastNameController.dispose();
     nationalIdController.dispose();
     engineeringNumberController.dispose();
-
     super.dispose();
   }
 
@@ -77,9 +60,7 @@ class _RegisterPageState
         nationalIdController.text.trim().isEmpty ||
         engineeringNumberController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يرجى تعبئة جميع الحقول'),
-        ),
+        const SnackBar(content: Text('يرجى تعبئة جميع الحقول')),
       );
       return;
     }
@@ -102,253 +83,68 @@ class _RegisterPageState
       body: Stack(
         children: [
           Positioned.fill(
-            child: Container(
-              color: const Color(0xFFEDEBE0)
-                  .withOpacity(0.90),
-            ),
+            child: Container(color: ColorTheme.surface.withOpacity(0.90)),
           ),
-
           Positioned.fill(
-            child: Image.asset(
-              'assets/images/background.png',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
           ),
-
           SafeArea(
             child: Column(
               children: [
                 const SizedBox(height: 14),
-
-                Image.asset(
-                  'assets/images/logo.png',
-                  height: 200,
-                ),
-
+                Image.asset('assets/images/logo.png', height: 200),
                 const SizedBox(height: 10),
-
                 Expanded(
                   child: SlideTransition(
                     position: _slideAnimation,
-
                     child: ClipPath(
                       clipper: TopCurveClipper(),
-
                       child: Container(
                         width: double.infinity,
-
-                        decoration:
-                            const BoxDecoration(
-                          color: Color(0xFF002623),
-                        ),
-
+                        decoration: const BoxDecoration(color: ColorTheme.primary),
                         child: Column(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.only(
-                                top: 45,
-                                bottom: 15,
-                              ),
-
+                              padding: EdgeInsets.only(top: 45, bottom: 15),
                               child: Center(
                                 child: Text(
                                   'المعلومات الشخصية',
-
-                                  style: TextStyle(
-                                    fontSize: 28,
-                                    color:
-                                        Colors.white,
-                                  ),
+                                  style: TextStyle(fontSize: 28, color: ColorTheme.textLight),
                                 ),
                               ),
                             ),
-
                             Expanded(
-                              child:
-                                  SingleChildScrollView(
+                              child: SingleChildScrollView(
                                 child: Padding(
-                                  padding:
-                                      const EdgeInsets
-                                          .all(10),
-
+                                  padding: const EdgeInsets.all(10),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment
-                                            .start,
-
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      const Text(
-                                        'الاسم الأول',
-
-                                        textDirection:
-                                            TextDirection
-                                                .rtl,
-
-                                        style: TextStyle(
-                                          color: Colors
-                                              .white,
-
-                                          fontSize: 22,
-                                        ),
-                                      ),
-
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      CustomTextField(
-                                        hint: '',
-
-                                        icon: Icons
-                                            .person,
-
-                                        controller:
-                                            firstNameController,
-
-                                        keyboardType:
-                                            TextInputType
-                                                .name,
-                                      ),
-
-                                      const SizedBox(
-                                        height: 25,
-                                      ),
-
-                                      const Text(
-                                        'الاسم الأخير',
-
-                                        textDirection:
-                                            TextDirection
-                                                .rtl,
-
-                                        style: TextStyle(
-                                          color: Colors
-                                              .white,
-
-                                          fontSize: 22,
-                                        ),
-                                      ),
-
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      CustomTextField(
-                                        hint: '',
-
-                                        icon: Icons
-                                            .person,
-
-                                        controller:
-                                            lastNameController,
-
-                                        keyboardType:
-                                            TextInputType
-                                                .name,
-                                      ),
-
-                                      const SizedBox(
-                                        height: 25,
-                                      ),
-
-                                      const Text(
-                                        'الرقم الوطني',
-
-                                        textDirection:
-                                            TextDirection
-                                                .rtl,
-
-                                        style: TextStyle(
-                                          color: Colors
-                                              .white,
-
-                                          fontSize: 22,
-                                        ),
-                                      ),
-
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      CustomTextField(
-                                        hint: '',
-
-                                        icon:
-                                            Icons.badge,
-
-                                        controller:
-                                            nationalIdController,
-
-                                        keyboardType:
-                                            TextInputType
-                                                .number,
-                                      ),
-
-                                      const SizedBox(
-                                        height: 25,
-                                      ),
-
-                                      const Text(
-                                        'الرقم الهندسي',
-
-                                        textDirection:
-                                            TextDirection
-                                                .rtl,
-
-                                        style: TextStyle(
-                                          color: Colors
-                                              .white,
-
-                                          fontSize: 22,
-                                        ),
-                                      ),
-
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-
-                                      CustomTextField(
-                                        hint: '',
-
-                                        icon: Icons
-                                            .engineering,
-
-                                        controller:
-                                            engineeringNumberController,
-
-                                        keyboardType:
-                                            TextInputType
-                                                .number,
-                                      ),
-
-                                      const SizedBox(
-                                        height: 40,
-                                      ),
-
+                                      const SizedBox(height: 10),
+                                      const Text('الاسم الأول', textDirection: TextDirection.rtl, style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
+                                      const SizedBox(height: 10),
+                                      CustomTextField(hint: '', icon: Icons.person, controller: firstNameController, keyboardType: TextInputType.name),
+                                      const SizedBox(height: 25),
+                                      const Text('الاسم الأخير', textDirection: TextDirection.rtl, style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
+                                      const SizedBox(height: 10),
+                                      CustomTextField(hint: '', icon: Icons.person, controller: lastNameController, keyboardType: TextInputType.name),
+                                      const SizedBox(height: 25),
+                                      const Text('الرقم الوطني', textDirection: TextDirection.rtl, style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
+                                      const SizedBox(height: 10),
+                                      CustomTextField(hint: '', icon: Icons.badge, controller: nationalIdController, keyboardType: TextInputType.number),
+                                      const SizedBox(height: 25),
+                                      const Text('الرقم الهندسي', textDirection: TextDirection.rtl, style: TextStyle(color: ColorTheme.textLight, fontSize: 22)),
+                                      const SizedBox(height: 10),
+                                      CustomTextField(hint: '', icon: Icons.engineering, controller: engineeringNumberController, keyboardType: TextInputType.number),
+                                      const SizedBox(height: 40),
                                       Center(
-                                        child:
-                                            PrimaryButton(
-                                          text:
-                                              'التالي',
-
-                                          buttonColor:
-                                              const Color(
-                                            0xFF054239,
-                                          ),
-
-                                          onPressed:
-                                              goToNextPage,
+                                        child: PrimaryButton(
+                                          text: 'التالي',
+                                          buttonColor: ColorTheme.primaryContainer,
+                                          onPressed: goToNextPage,
                                         ),
                                       ),
-
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
+                                      const SizedBox(height: 30),
                                     ],
                                   ),
                                 ),

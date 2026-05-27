@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:engineers_syndicate_project/features/auth/view/pages/reset_password_page.dart';
 import 'package:engineers_syndicate_project/features/auth/view_model/auth_cubit.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         listener: (context, state) {
           if (state is ForgotPasswordError) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error), backgroundColor: Colors.red),
+              SnackBar(content: Text(state.error), backgroundColor: ColorTheme.onError),
             );
           }
           if (state is ForgotPasswordEmailSentSuccess) {
@@ -50,7 +51,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           return Stack(
             children: [
               Positioned.fill(
-                child: Container(color: const Color(0xFFEDEBE0).withOpacity(0.90)),
+                child: Container(color: ColorTheme.surface.withOpacity(0.90)),
               ),
               Positioned.fill(
                 child: Image.asset('assets/images/background.png', fit: BoxFit.cover),
@@ -69,15 +70,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           const SizedBox(height: 20),
                           const Text(
                             'إعادة تعيين كلمة المرور',
-                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFFB9A779)),
+                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: ColorTheme.accent),
                           ),
                           const SizedBox(height: 15),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
                               'أدخل رقم هاتفك المسجل لإرسال رمز التحقق الخاص بإعادة تعيين كلمة المرور.',
                               textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16, color: Colors.black54),
+                              style: TextStyle(fontSize: 16, color: ColorTheme.textPrimary.withOpacity(0.7)),
                             ),
                           ),
                           const SizedBox(height: 40),
@@ -91,10 +92,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                           const SizedBox(height: 40),
                           state is ForgotPasswordLoading
-                              ? const CircularProgressIndicator(color: Color(0xFF054239))
+                              ? const CircularProgressIndicator(color: ColorTheme.primary)
                               : PrimaryButton(
                                   text: 'إرسال الرمز',
-                                  buttonColor: const Color(0xFF002623),
+                                  buttonColor: ColorTheme.primary,
                                   onPressed: () {
                                     context.read<AuthCubit>().forgotPassword(_phoneController.text.trim());
                                   },
@@ -102,7 +103,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           const SizedBox(height: 20),
                           TextButton(
                             onPressed: () => Navigator.pop(context),
-                            child: const Text('العودة لتسجيل الدخول', style: TextStyle(color: Colors.black)),
+                            child: const Text('العودة لتسجيل الدخول', style: TextStyle(color: ColorTheme.textPrimary)),
                           )
                         ],
                       ),

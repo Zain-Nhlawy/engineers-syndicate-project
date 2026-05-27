@@ -1,3 +1,4 @@
+import 'package:engineers_syndicate_project/config/theme/color_theme.dart';
 import 'package:flutter/material.dart';
 
 class BuildingInfoRow extends StatelessWidget {
@@ -22,27 +23,27 @@ class BuildingInfoRow extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFFB4C3BA).withOpacity(0.5),
+          color: ColorTheme.primaryContainer.withOpacity(0.3),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
-            Icon(icon, color: const Color(0xFF002623), size: 24),
+            Icon(icon, color: ColorTheme.primary, size: 24),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title, 
-                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                    title,
+                    style: TextStyle(fontSize: 12, color: ColorTheme.textPrimary.withOpacity(0.6)),
                   ),
                   Text(
                     value,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: isLink ? Colors.blue[900] : Colors.black,
+                      color: isLink ? ColorTheme.textSecondary : ColorTheme.textPrimary,
                       decoration: isLink ? TextDecoration.underline : TextDecoration.none,
                     ),
                   ),
