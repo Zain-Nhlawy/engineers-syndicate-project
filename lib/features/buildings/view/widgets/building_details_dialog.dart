@@ -11,69 +11,119 @@ void showBuildingDetailsDialog(BuildContext context, BuildingModel building) {
   showDialog(
     context: context,
     builder: (context) {
+      final size = MediaQuery.of(context).size;
+      final screenWidth = size.width;
+      final screenHeight = size.height;
+
       return Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(screenWidth * 0.06),
+        ),
         backgroundColor: ColorTheme.surface,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                padding: EdgeInsets.symmetric(
+                  vertical: screenHeight * 0.02,
+                  horizontal: screenWidth * 0.025,
+                ),
                 width: double.infinity,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: ColorTheme.background,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(screenWidth * 0.06),
+                  ),
                 ),
                 child: Text(
                   building.name,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: ColorTheme.textPrimary),
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: ColorTheme.textPrimary,
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(screenWidth * 0.04),
                 child: Column(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.04),
                       child: Image.network(
                         '$baseUrl/${building.imagePath}',
-                        height: 180,
+                        height: screenHeight * 0.22,
                         width: double.infinity,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
-                          return Image.asset('assets/images/logo.png', height: 180);
+                          return Image.asset(
+                            'assets/images/logo.png',
+                            height: screenHeight * 0.22,
+                          );
                         },
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    BuildingInfoRow(icon: Icons.access_time, title: 'أوقات الدوام', value: building.workingHours),
-                    BuildingInfoRow(icon: Icons.phone, title: 'رقم التواصل', value: building.contactNumber.isEmpty ? 'غير متوفر' : building.contactNumber),
-                    BuildingInfoRow(icon: Icons.location_on, title: 'عنوان المبنى', value: building.address),
-                    BuildingInfoRow(icon: Icons.business, title: 'عدد القاعات', value: building.totalRooms.toString()),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.025),
+                    BuildingInfoRow(
+                      icon: Icons.access_time,
+                      title: 'أوقات الدوام',
+                      value: building.workingHours,
+                    ),
+                    BuildingInfoRow(
+                      icon: Icons.phone,
+                      title: 'رقم التواصل',
+                      value: building.contactNumber.isEmpty
+                          ? 'غير متوفر'
+                          : building.contactNumber,
+                    ),
+                    BuildingInfoRow(
+                      icon: Icons.location_on,
+                      title: 'عنوان المبنى',
+                      value: building.address,
+                    ),
+                    BuildingInfoRow(
+                      icon: Icons.business,
+                      title: 'عدد القاعات',
+                      value: building.totalRooms.toString(),
+                    ),
+                    SizedBox(height: screenHeight * 0.025),
                     SizedBox(
                       width: double.infinity,
-                      height: 50,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ColorTheme.primary,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                          padding: EdgeInsets.symmetric(
+                            vertical: screenHeight * 0.01,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
+
                         onPressed: () {
                           Navigator.of(context).pop();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => BlocProvider(
-                                create: (context) => HallsCubit()..loadHalls(building.id),
-                                child: HallsListPage(buildingName: building.name),
+                                create: (context) =>
+                                    HallsCubit()..loadHalls(building.id),
+                                child: HallsListPage(
+                                  buildingName: building.name,
+                                ),
                               ),
                             ),
                           );
                         },
-                        child: const Text('عرض قاعات المبنى', style: TextStyle(color: ColorTheme.textLight, fontSize: 18)),
+                        child: Text(
+                          'عرض قاعات المبنى',
+                          style: TextStyle(
+                            color: ColorTheme.textLight,
+                            fontSize: screenWidth * 0.04,
+                          ),
+                        ),
                       ),
                     ),
                   ],

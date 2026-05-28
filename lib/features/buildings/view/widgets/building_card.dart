@@ -15,16 +15,20 @@ class BuildingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: EdgeInsets.only(bottom: screenHeight * 0.025),
       decoration: BoxDecoration(
         color: ColorTheme.surface,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(screenWidth * 0.05),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: Offset(0, screenHeight * 0.006),
           ),
         ],
       ),
@@ -32,16 +36,16 @@ class BuildingCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(screenWidth * 0.05)),
             child: Image.network(
               '$baseUrl/${building.imagePath}',
-              height: 180,
+              height: screenHeight * 0.22,
               width: double.infinity,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return Image.asset(
                   'assets/images/logo.png',
-                  height: 180,
+                  height: screenHeight * 0.22,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 );
@@ -49,19 +53,19 @@ class BuildingCard extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   building.name,
-                  style: const TextStyle(
-                    fontSize: 22,
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.055,
                     fontWeight: FontWeight.bold,
                     color: ColorTheme.textPrimary,
                   ),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: screenHeight * 0.006),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -70,18 +74,27 @@ class BuildingCard extends StatelessWidget {
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: ColorTheme.primary, width: 1.2),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(screenWidth * 0.03),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.06,
+                          vertical: screenHeight * 0.01,
+                        ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'تفاصيل',
-                        style: TextStyle(color: ColorTheme.primary, fontSize: 16),
+                        style: TextStyle(
+                          color: ColorTheme.primary,
+                          fontSize: screenWidth * 0.04,
+                        ),
                       ),
                     ),
                     Text(
                       building.workingHours,
-                      style: TextStyle(fontSize: 16, color: ColorTheme.textPrimary.withOpacity(0.7)),
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04,
+                        color: ColorTheme.textPrimary.withOpacity(0.7),
+                      ),
                     ),
                   ],
                 ),

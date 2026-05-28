@@ -12,6 +12,10 @@ class HallsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -25,12 +29,19 @@ class HallsListPage extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               buildingName,
-              style: TextStyle(color: ColorTheme.textPrimary, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: ColorTheme.textPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: screenWidth * 0.05,
+              ),
             ),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
-            iconTheme: const IconThemeData(color: ColorTheme.textPrimary),
+            iconTheme: IconThemeData(
+              color: ColorTheme.textPrimary,
+              size: screenWidth * 0.06,
+            ),
           ),
           body: BlocBuilder<HallsCubit, HallsState>(
             builder: (context, state) {
@@ -38,18 +49,21 @@ class HallsListPage extends StatelessWidget {
                 return const Center(child: CircularProgressIndicator(color: ColorTheme.primary));
               } else if (state is HallsLoaded) {
                 if (state.halls.isEmpty) {
-                  return const Center(
+                  return Center(
                     child: Text(
                       "لا توجد قاعات لهذا المبنى",
-                      style: TextStyle(color: ColorTheme.textPrimary),
+                      style: TextStyle(
+                        color: ColorTheme.textPrimary,
+                        fontSize: screenWidth * 0.045,
+                      ),
                     ),
                   );
                 }
 
                 return ListView.separated(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(screenWidth * 0.04),
                   itemCount: state.halls.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 16),
+                  separatorBuilder: (context, index) => SizedBox(height: screenHeight * 0.02),
                   itemBuilder: (context, index) {
                     return HallsCard2(halls: state.halls[index]);
                   },
@@ -58,7 +72,10 @@ class HallsListPage extends StatelessWidget {
                 return Center(
                   child: Text(
                     state.message,
-                    style: const TextStyle(color: ColorTheme.onError),
+                    style: TextStyle(
+                      color: ColorTheme.onError,
+                      fontSize: screenWidth * 0.04,
+                    ),
                   ),
                 );
               }

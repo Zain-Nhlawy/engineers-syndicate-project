@@ -12,6 +12,10 @@ class BuildingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return BlocProvider(
       create: (context) => getIt<BuildingsCubit>()..fetchBuildings(),
       child: Scaffold(
@@ -26,23 +30,34 @@ class BuildingsScreen extends StatelessWidget {
               return Center(
                 child: Text(
                   state.error,
-                  style: const TextStyle(color: ColorTheme.onError, fontSize: 16),
+                  style: TextStyle(
+                    color: ColorTheme.onError,
+                    fontSize: screenWidth * 0.04,
+                  ),
                 ),
               );
             } else if (state is BuildingsSuccess) {
               final buildings = state.buildings;
 
               if (buildings.isEmpty) {
-                return const Center(
+                return Center(
                   child: Text(
                     'لا يوجد أبنية مضافة حالياً',
-                    style: TextStyle(fontSize: 18, color: ColorTheme.textPrimary),
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.045,
+                      color: ColorTheme.textPrimary,
+                    ),
                   ),
                 );
               }
 
               return ListView.builder(
-                padding: const EdgeInsets.only(top: 10, bottom: 100, left: 15, right: 15),
+                padding: EdgeInsets.only(
+                  top: screenHeight * 0.012,
+                  bottom: screenHeight * 0.12,
+                  left: screenWidth * 0.04,
+                  right: screenWidth * 0.04,
+                ),
                 itemCount: buildings.length,
                 itemBuilder: (context, index) {
                   return BuildingCard(

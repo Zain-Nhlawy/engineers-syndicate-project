@@ -10,17 +10,21 @@ class HallsCard2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Card(
       elevation: 4,
       shadowColor: Colors.black.withOpacity(0.2),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(screenWidth * 0.05)),
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: [
           Stack(
             children: [
               SizedBox(
-                height: 150,
+                height: screenHeight * 0.18,
                 width: double.infinity,
                 child: Image.asset(
                   'assets/images/test.png',
@@ -28,19 +32,19 @@ class HallsCard2 extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 10,
-                left: 10,
-                child: _buildInfoIcon(Icons.person, '${halls.capacityLimit ?? 0}'),
+                top: screenHeight * 0.012,
+                left: screenWidth * 0.025,
+                child: _buildInfoIcon(Icons.person, '${halls.capacityLimit ?? 0}', screenWidth, screenHeight),
               ),
               Positioned(
-                top: 10,
-                right: 10,
-                child: _buildInfoIcon(Icons.attach_money, '${halls.pricePerHour ?? 0}'),
+                top: screenHeight * 0.012,
+                right: screenWidth * 0.025,
+                child: _buildInfoIcon(Icons.attach_money, '${halls.pricePerHour ?? 0}', screenWidth, screenHeight),
               ),
             ],
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(screenWidth * 0.03),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -49,7 +53,11 @@ class HallsCard2 extends StatelessWidget {
                   children: [
                     Text(
                       'القاعة رقم ${halls.roomNumber}',
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: ColorTheme.textPrimary),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: screenWidth * 0.04,
+                        color: ColorTheme.textPrimary,
+                      ),
                     ),
                   ],
                 ),
@@ -59,9 +67,17 @@ class HallsCard2 extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: ColorTheme.primary),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.025),
+                    ),
                   ),
-                  child: const Text('تفاصيل', style: TextStyle(color: ColorTheme.primary)),
+                  child: Text(
+                    'تفاصيل',
+                    style: TextStyle(
+                      color: ColorTheme.primary,
+                      fontSize: screenWidth * 0.035,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -71,18 +87,28 @@ class HallsCard2 extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoIcon(IconData icon, String text) {
+  Widget _buildInfoIcon(IconData icon, String text, double screenWidth, double screenHeight) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(
+        horizontal: screenWidth * 0.02,
+        vertical: screenHeight * 0.005,
+      ),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.5),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(screenWidth * 0.03),
       ),
       child: Row(
         children: [
-          Icon(icon, size: 16, color: Colors.white),
-          const SizedBox(width: 4),
-          Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          Icon(icon, size: screenWidth * 0.04, color: Colors.white),
+          SizedBox(width: screenWidth * 0.01),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: screenWidth * 0.035,
+            ),
+          ),
         ],
       ),
     );

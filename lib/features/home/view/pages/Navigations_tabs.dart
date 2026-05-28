@@ -1,7 +1,7 @@
-import 'package:engineers_syndicate_project/features/home/view_model/navigation_tabs_cubit.dart';
-import 'package:engineers_syndicate_project/features/home/view_model/navigation_tabs_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:engineers_syndicate_project/features/home/view_model/navigation_tabs_cubit.dart';
+import 'package:engineers_syndicate_project/features/home/view_model/navigation_tabs_state.dart';
 
 class NavigationsTabs extends StatelessWidget {
   const NavigationsTabs({super.key});
@@ -9,6 +9,9 @@ class NavigationsTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
 
     return BlocProvider(
       create: (context) => NavigationTabsCubit(),
@@ -18,24 +21,27 @@ class NavigationsTabs extends StatelessWidget {
 
           return Scaffold(
             appBar: PreferredSize(
-              preferredSize: const Size.fromHeight(65),
+              preferredSize: Size.fromHeight(screenHeight * 0.08),
               child: AppBar(
                 centerTitle: true,
-                backgroundColor: Theme.of(context).colorScheme.surface,
+                backgroundColor: theme.colorScheme.surface,
                 leadingWidth: 0,
                 automaticallyImplyLeading: false,
                 title: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Image.asset('assets/images/logo.png', height: 40),
-                    const SizedBox(width: 8),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height: screenHeight * 0.05,
+                    ),
+                    SizedBox(width: screenWidth * 0.04),
                     Flexible(
                       child: Text(
                         'نقابة المهندسين السوريين',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: theme.colorScheme.secondary,
-                          fontSize: 18,
+                          fontSize: screenWidth * 0.045,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -44,26 +50,34 @@ class NavigationsTabs extends StatelessWidget {
                 ),
                 actions: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.04,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: theme.colorScheme.secondary,
                           width: 0.8,
                         ),
                       ),
                       child: IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.notifications, size: 26),
-                        color: Theme.of(context).colorScheme.secondary,
+                        icon: Icon(
+                          Icons.notifications,
+                          size: screenWidth * 0.065,
+                        ),
+                        color: theme.colorScheme.secondary,
                       ),
                     ),
                   ),
                 ],
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
-                    bottom: Radius.elliptical(220, 12),
+                    bottom: Radius.elliptical(
+                      screenWidth * 0.55,
+                      screenHeight * 0.015,
+                    ),
                   ),
                 ),
               ),
@@ -91,7 +105,13 @@ class NavigationsTabs extends StatelessWidget {
                 ),
               ],
             ),
-            bottomNavigationBar: _buildModernNavBar(theme, state, cubit),
+            bottomNavigationBar: _buildModernNavBar(
+              theme,
+              state,
+              cubit,
+              screenWidth,
+              screenHeight,
+            ),
           );
         },
       ),
@@ -102,13 +122,18 @@ class NavigationsTabs extends StatelessWidget {
     ThemeData theme,
     NavigationTabsState state,
     NavigationTabsCubit cubit,
+    double screenWidth,
+    double screenHeight,
   ) {
     final colorScheme = theme.colorScheme;
 
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 34, vertical: 8),
-        height: 70,
+        margin: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.085,
+          vertical: screenHeight * 0.01,
+        ),
+        height: screenHeight * 0.09,
         decoration: BoxDecoration(
           color: colorScheme.primary,
           borderRadius: BorderRadius.circular(25),
@@ -132,9 +157,10 @@ class NavigationsTabs extends StatelessWidget {
                 state: state,
                 cubit: cubit,
                 sideWord: "الرئيسية",
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
               ),
             ),
-
             Expanded(
               child: _buildNavItem(
                 icon: Icons.maps_home_work_outlined,
@@ -143,6 +169,8 @@ class NavigationsTabs extends StatelessWidget {
                 state: state,
                 cubit: cubit,
                 sideWord: "الأبنية",
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
               ),
             ),
             Expanded(
@@ -153,6 +181,8 @@ class NavigationsTabs extends StatelessWidget {
                 state: state,
                 cubit: cubit,
                 sideWord: "حجوزاتي",
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
               ),
             ),
             Expanded(
@@ -163,6 +193,8 @@ class NavigationsTabs extends StatelessWidget {
                 state: state,
                 cubit: cubit,
                 sideWord: "ملفي",
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
               ),
             ),
           ],
@@ -178,12 +210,14 @@ class NavigationsTabs extends StatelessWidget {
     required NavigationTabsState state,
     required NavigationTabsCubit cubit,
     required String sideWord,
+    required double screenWidth,
+    required double screenHeight,
   }) {
     final isActive = state.currentIndex == index;
     final colorScheme = theme.colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: EdgeInsets.symmetric(vertical: screenHeight * 0.005),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -195,8 +229,8 @@ class NavigationsTabs extends StatelessWidget {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeInOut,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              width: 50,
+              padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),
+              width: screenWidth * 0.125,
               decoration: BoxDecoration(
                 color: isActive
                     ? colorScheme.primaryContainer
@@ -205,20 +239,20 @@ class NavigationsTabs extends StatelessWidget {
               ),
               child: Icon(
                 icon,
-                size: 24,
+                size: screenWidth * 0.06,
                 color: isActive
                     ? colorScheme.surface
                     : colorScheme.surface.withOpacity(0.9),
               ),
             ),
           ),
-          const SizedBox(height: 2),
+          SizedBox(height: screenHeight * 0.002),
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               sideWord,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: screenWidth * 0.035,
                 color: isActive
                     ? colorScheme.surface
                     : colorScheme.surface.withOpacity(0.9),

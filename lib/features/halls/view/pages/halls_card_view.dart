@@ -9,12 +9,16 @@ class HallsCardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return BlocBuilder<HallsCubit, HallsState>(
       builder: (context, state) {
         if (state is HallsInitial || state is HallsLoading) {
-          return const SizedBox(
-            height: 160,
-            child: Center(child: CircularProgressIndicator()),
+          return SizedBox(
+            height: screenHeight * 0.20,
+            child: const Center(child: CircularProgressIndicator()),
           );
         }
 
@@ -22,14 +26,14 @@ class HallsCardView extends StatelessWidget {
           if (state.halls.isEmpty) return const SizedBox.shrink();
 
           return SizedBox(
-            height: 160,
+            height: screenHeight * 0.20,
             child: ListView.builder(
               itemCount: state.halls.length,
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.03),
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
                   child: HallsCardWidget(halls: state.halls[index]),
                 );
               },

@@ -17,34 +17,48 @@ class BuildingInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        margin: EdgeInsets.only(bottom: screenHeight * 0.012),
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.03,
+          vertical: screenHeight * 0.01,
+        ),
         decoration: BoxDecoration(
           color: ColorTheme.primaryContainer.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(screenWidth * 0.03),
         ),
         child: Row(
           children: [
-            Icon(icon, color: ColorTheme.primary, size: 24),
-            const SizedBox(width: 10),
+            Icon(icon, color: ColorTheme.primary, size: screenWidth * 0.06),
+            SizedBox(width: screenWidth * 0.025),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style: TextStyle(fontSize: 12, color: ColorTheme.textPrimary.withOpacity(0.6)),
+                    style: TextStyle(
+                      fontSize: screenWidth * 0.03,
+                      color: ColorTheme.textPrimary.withOpacity(0.6),
+                    ),
                   ),
                   Text(
                     value,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: screenWidth * 0.035,
                       fontWeight: FontWeight.bold,
-                      color: isLink ? ColorTheme.textSecondary : ColorTheme.textPrimary,
-                      decoration: isLink ? TextDecoration.underline : TextDecoration.none,
+                      color: isLink
+                          ? ColorTheme.textSecondary
+                          : ColorTheme.textPrimary,
+                      decoration: isLink
+                          ? TextDecoration.underline
+                          : TextDecoration.none,
                     ),
                   ),
                 ],

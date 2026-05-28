@@ -67,6 +67,10 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
     return BlocBuilder<EventsCubit, EventsState>(
       builder: (context, state) {
         if (state is EventsInitial || state is EventsLoading) {
@@ -85,8 +89,8 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                height: 200,
-                width: 350,
+                height: screenHeight * 0.25,
+                width: screenWidth * 0.9,
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: state.events.length,
@@ -123,19 +127,21 @@ class _EventsSliderScreenState extends State<EventsSliderScreen> {
                   },
                 ),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: screenHeight * 0.015),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(indicatorCount, (index) {
                   final isSelected = activeIndicatorIndex == index;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    height: 8,
-                    width: isSelected ? 16 : 8,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.01,
+                    ),
+                    height: screenHeight * 0.01,
+                    width: isSelected ? screenWidth * 0.04 : screenWidth * 0.02,
                     decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(screenWidth * 0.01),
                       color: isSelected
                           ? theme.colorScheme.primary
                           : Colors.grey.withOpacity(0.4),
