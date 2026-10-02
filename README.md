@@ -35,5 +35,7 @@ The project follows a **feature-based architecture**, separating:
 ## 👨‍💻 Authors
 
 **Zain Nhlawy**
+
 **Loulia Alshaar**
+
 Information Engineering Students & Flutter Developers
