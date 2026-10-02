@@ -1,16 +1,39 @@
-# engineers_syndicate_project
+# Engineers Syndicate Mobile App
 
-A new Flutter project.
+A Flutter mobile application developed for the **Engineers Syndicate**, providing engineers with a centralized platform to access syndicate services and information.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+*  Authentication with JWT, OTP verification & password recovery
+*  Browse syndicate buildings
+*  View available halls and their details
+*  Explore upcoming events
+*  User account & profile
+*  Responsive Arabic RTL interface
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+* **Flutter / Dart**
+* **BLoC / Cubit** — State Management
+* **Dio** — REST API integration
+* **GetIt** — Dependency Injection
+* **JWT** — Authentication
+* **Flutter Secure Storage** — Secure token storage
+* **flutter_dotenv** — Environment configuration
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🏗️ Architecture
+
+The project follows a **feature-based architecture**, separating:
+
+* Data & API services
+* UI & widgets
+* Business logic / state management
+* Core networking & storage
+
+
+
+## 👨‍💻 Authors
+
+**Zain Nhlawy**
+**Loulia Alshaar**
+Information Engineering Students & Flutter Developers
